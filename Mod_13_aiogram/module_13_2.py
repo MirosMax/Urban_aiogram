@@ -2,7 +2,8 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import asyncio
 
-with open('api.txt', 'r', encoding='utf-8') as file_api:
+# получение api-ключа
+with open('../api.txt', 'r', encoding='utf-8') as file_api:
     api = file_api.read()
 
 bot = Bot(token=api)
