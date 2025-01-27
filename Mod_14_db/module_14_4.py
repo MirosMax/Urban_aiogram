@@ -6,7 +6,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import asyncio
 
-from crud_functions import get_all_products
+from crud_functions import all_products
 
 # получение api-ключа
 with open('../api.txt', 'r', encoding='utf-8') as file_api:
@@ -14,8 +14,6 @@ with open('../api.txt', 'r', encoding='utf-8') as file_api:
 
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
-
-products = get_all_products('not_telegram.db', 'Products')
 
 # Основная клавиатура
 kb = ReplyKeyboardMarkup(resize_keyboard=True)
@@ -34,19 +32,13 @@ i_kb_calc.row(i_btn_calories, i_btn_formulas)
 # Инлайн клавиатура для выбора товаров
 i_kb_products = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text=f'{products[0][1]}', callback_data='product_buying')],
-        [InlineKeyboardButton(text=f'{products[1][1]}', callback_data='product_buying')],
-        [InlineKeyboardButton(text=f'{products[2][1]}', callback_data='product_buying')],
-        [InlineKeyboardButton(text=f'{products[3][1]}', callback_data='product_buying')],
-        [InlineKeyboardButton(text=f'{products[4][1]}', callback_data='product_buying')]
+        [InlineKeyboardButton(text=f'{all_products[0][1]}', callback_data='product_buying')],
+        [InlineKeyboardButton(text=f'{all_products[1][1]}', callback_data='product_buying')],
+        [InlineKeyboardButton(text=f'{all_products[2][1]}', callback_data='product_buying')],
+        [InlineKeyboardButton(text=f'{all_products[3][1]}', callback_data='product_buying')],
+        [InlineKeyboardButton(text=f'{all_products[4][1]}', callback_data='product_buying')]
     ]
 )
-# i_kb_products.row(
-#     InlineKeyboardButton(text='Витамины 1', callback_data='product_buying'),
-#     InlineKeyboardButton(text='Витамины 2', callback_data='product_buying'),
-#     InlineKeyboardButton(text='Витамины 3', callback_data='product_buying'),
-#     InlineKeyboardButton(text='Витамины 4', callback_data='product_buying')
-# )
 
 
 class UserState(StatesGroup):
@@ -83,7 +75,7 @@ A – это уровень активности человека, его раз
 async def get_buying_list(message):
 
     for i in range(5):
-        text_about = f'Название: {products[i][1]} | Описание: {products[i][2]} | Цена: {products[i][3]}'
+        text_about = f'Название: {all_products[i][1]} | Описание: {all_products[i][2]} | Цена: {all_products[i][3]}'
         with open(f'bot_img/product_{i}.jpg', 'rb') as img_file:
             await message.answer_photo(img_file, text_about)
     await message.answer('Выберите продукт для покупки', reply_markup=i_kb_products)
