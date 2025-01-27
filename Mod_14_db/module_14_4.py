@@ -6,7 +6,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import asyncio
 
-from crud_functions import all_products
+from crud_functions_14_4 import all_products
 
 # получение api-ключа
 with open('../api.txt', 'r', encoding='utf-8') as file_api:
