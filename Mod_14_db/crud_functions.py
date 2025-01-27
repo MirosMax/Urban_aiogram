@@ -15,15 +15,6 @@ def initiate_db():
     )
     ''')
 
-    cursor.execute(f'''
-    CREATE TABLE IF NOT EXISTS Users(
-    id INTEGER PRIMARY KEY,
-    username TEXT NOT NULL,
-    email TEXT NOT NULL,
-    age INT NOT NULL,
-    balance INTEGER NOT NULL
-    )
-    ''')
 
     connection.commit()
 
@@ -41,8 +32,6 @@ def get_all_products():
     result = cursor.fetchall()
 
     return result
-
-
 
 
 initiate_db()
